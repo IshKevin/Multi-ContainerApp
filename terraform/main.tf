@@ -8,27 +8,14 @@ terraform {
 #     region         = "eu-west-1"
 #     dynamodb_table = "terraform-lock"
 #   }
-
-  required_providers {
-    aws = {
-        source = "hashicorp/aws"
-        version = "~> 6.0"
-        }
-    tls = { 
-        source = "hashicorp/tls"
-        version = "~> 4.0" 
-        }
-  }
-}
-
-provider "aws" { 
-    region = var.aws_region
 }
 
 
 module "compute" {
-  source       = "./modules/ec2"
-  project_name = var.project_name
+  source = "./modules/ec2"
+
+  project_name  = var.project_name
+  instance_type = var.instance_type
 }
 
 resource "local_file" "ansible_inventory" {
@@ -36,5 +23,6 @@ resource "local_file" "ansible_inventory" {
     ip_address = module.compute.public_ip,
     key_path   = "../terraform/${module.compute.key_name}.pem"
   })
+
   filename = "../ansible/inventory.ini"
 }

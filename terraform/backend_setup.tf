@@ -4,7 +4,7 @@ resource "random_id" "bucket_suffix" {
 
 resource "aws_s3_bucket" "state_bucket" {
   bucket        = "multicontainerlab-state-${random_id.bucket_suffix.hex}"
-  force_destroy = true 
+  force_destroy = true
 }
 
 resource "aws_dynamodb_table" "terraform_lock" {
@@ -16,8 +16,4 @@ resource "aws_dynamodb_table" "terraform_lock" {
     name = "LockID"
     type = "S"
   }
-}
-
-output "state_bucket_name" {
-  value = aws_s3_bucket.state_bucket.bucket
 }

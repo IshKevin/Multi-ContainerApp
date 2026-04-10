@@ -9,11 +9,11 @@ output "ssh_key_name" {
 }
 
 output "backend_s3_bucket" {
-  description = "The name of the S3 bucket created for the remote state"
+  description = "S3 bucket for Terraform state"
   value       = aws_s3_bucket.state_bucket.bucket
 }
 
 output "backend_dynamodb_table" {
-  description = "The name of the DynamoDB table for state locking"
+  description = "DynamoDB table for state locking"
   value       = aws_dynamodb_table.terraform_lock.name
 }
