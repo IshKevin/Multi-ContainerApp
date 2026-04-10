@@ -1,0 +1,8 @@
+- name: Setup Docker
+  import_tasks: docker.yml
+
+- name: Setup Docker Compose & Buildx
+  import_tasks: compose.yml
+
+- name: Deploy Application
+  import_tasks: app.yml

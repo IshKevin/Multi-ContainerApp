@@ -1,0 +1,25 @@
+- name: Update yum cache
+  yum:
+    update_cache: yes
+
+- name: Install Docker and Git
+  yum:
+    name:
+      - docker
+      - git
+    state: present
+
+- name: Start and enable Docker service
+  service:
+    name: docker
+    state: started
+    enabled: yes
+
+- name: Add ec2-user to docker group
+  user:
+    name: ec2-user
+    groups: docker
+    append: yes
+
+- name: Refresh SSH connection
+  meta: reset_connection
